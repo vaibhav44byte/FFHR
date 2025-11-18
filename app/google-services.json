@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "976078668515",
+    "firebase_url": "https://ffhr-3c167-default-rtdb.firebaseio.com",
+    "project_id": "ffhr-3c167",
+    "storage_bucket": "ffhr-3c167.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976078668515:android:93e9ec26cc7cef644d3bd6",
+        "android_client_info": {
+          "package_name": "com.example.ffhr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApiwv9V9H18XH31VFxXyDHcS3rWAm5qoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
