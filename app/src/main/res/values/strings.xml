@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FFHR</string>
+    <string name="weather_locating">Locating...</string>
+    <string name="weather_default_temp">--°C</string>
+    <string name="weather_humidity_label">Humidity: --%%</string>
+    <string name="weather_wind_label">Wind: -- m/s</string>
 </resources>
