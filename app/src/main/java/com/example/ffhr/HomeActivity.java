@@ -2,43 +2,98 @@ package com.example.ffhr;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment; // Import for Fragments
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TextView welcomeText;
-    Button logoutBtn;
+    TextView tvGreeting;
+    ImageView btnLogout;
+    CardView cardHealthReport, cardScanLeaf, cardFertilizer, cardAddFarm, cardSoilStatus, cardSettings;
+
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        welcomeText = findViewById(R.id.welcomeText);
-        logoutBtn = findViewById(R.id.logoutBtn);
+        // 1. Initialize Main Views
+        tvGreeting = findViewById(R.id.tvGreeting);
+        btnLogout = findViewById(R.id.btnLogout);
 
-        // Get current user
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        cardHealthReport = findViewById(R.id.cardHealthReport);
+        cardScanLeaf = findViewById(R.id.cardScanLeaf);
+        cardFertilizer = findViewById(R.id.cardFertilizer);
+        cardAddFarm = findViewById(R.id.cardAddFarm);
+        cardSoilStatus = findViewById(R.id.cardSoilStatus);
+        cardSettings = findViewById(R.id.cardSettings);
 
-        if (currentUser != null) {
-            String email = currentUser.getEmail();
-            welcomeText.setText("Welcome, " + email);
-        } else {
-            welcomeText.setText("Welcome User");
+        // 2. LOAD YOUR WEATHER FRAGMENT
+        // This runs the code inside your 'WeatherFragment.java' file
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_weather, new WeatherFragment())
+                    .commit();
         }
 
-        // Logout button
-        logoutBtn.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(HomeActivity.this, login.class);
-            startActivity(intent);
+        // 3. Firebase Name Logic
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            // Use the URL from your screenshot
+            String dbUrl = "https://ffhr-3c167-default-rtdb.firebaseio.com/";
+            mDatabase = FirebaseDatabase.getInstance(dbUrl).getReference("users").child(uid);
+
+            mDatabase.child("name").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists() && snapshot.getValue() != null) {
+                        String name = snapshot.getValue(String.class);
+                        tvGreeting.setText("WELCOME " + name.toUpperCase());
+                    } else {
+                        tvGreeting.setText("WELCOME FARMER");
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) { }
+            });
+        }
+
+        // 4. Logout Logic
+        btnLogout.setOnClickListener(v -> {
+            mAuth.signOut();
+            startActivity(new Intent(HomeActivity.this, login.class));
             finish();
         });
+
+        setupGridListeners();
+    }
+
+    private void setupGridListeners() {
+        cardHealthReport.setOnClickListener(v -> Toast.makeText(this, "Health Report", Toast.LENGTH_SHORT).show());
+        cardScanLeaf.setOnClickListener(v -> Toast.makeText(this, "Scan Leaf", Toast.LENGTH_SHORT).show());
+        cardFertilizer.setOnClickListener(v -> Toast.makeText(this, "Fertilizer", Toast.LENGTH_SHORT).show());
+        cardAddFarm.setOnClickListener(v -> Toast.makeText(this, "Add Farm", Toast.LENGTH_SHORT).show());
+        cardSoilStatus.setOnClickListener(v -> Toast.makeText(this, "Soil Status", Toast.LENGTH_SHORT).show());
+        cardSettings.setOnClickListener(v -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show());
     }
 }
