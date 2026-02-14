@@ -1,4 +1,4 @@
-package com.example.ffhr;
+package com.example.ffhr.auth;
 
 public class UserHelperClass {
     private String name, username, email, phoneNo, password;

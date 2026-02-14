@@ -1,4 +1,4 @@
-package com.example.ffhr;
+package com.example.ffhr.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ffhr.R;
+import com.example.ffhr.ui.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText usernameInput, passwordInput;
     Button goButton;
@@ -53,16 +55,16 @@ public class login extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
 
-                            Toast.makeText(login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
-                            startActivity(new Intent(login.this, HomeActivity.class));
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
 // For now, after login just stay on login page or redirect to a new page we create later
 
                             finish();
 
                         } else {
-                            Toast.makeText(login.this,
+                            Toast.makeText(LoginActivity.this,
                                     "Login Failed: " + task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
@@ -72,7 +74,7 @@ public class login extends AppCompatActivity {
 
         // Redirect to Signup
         signupRedirectText.setOnClickListener(v -> {
-            startActivity(new Intent(login.this, SignupActivity.class));
+            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
         });
     }
 }

@@ -1,8 +1,7 @@
-package com.example.ffhr;
+package com.example.ffhr.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,8 +9,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment; // Import for Fragments
 
+import com.example.ffhr.R;
+import com.example.ffhr.auth.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         // 4. Logout Logic
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
-            startActivity(new Intent(HomeActivity.this, login.class));
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
         });
 
@@ -90,7 +90,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupGridListeners() {
         cardHealthReport.setOnClickListener(v -> Toast.makeText(this, "Health Report", Toast.LENGTH_SHORT).show());
-        cardScanLeaf.setOnClickListener(v -> Toast.makeText(this, "Scan Leaf", Toast.LENGTH_SHORT).show());
+
+        // REPLACE THIS LINE:
+        cardScanLeaf.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, LeafScanActivity.class);
+            startActivity(intent);
+        });
+
         cardFertilizer.setOnClickListener(v -> Toast.makeText(this, "Fertilizer", Toast.LENGTH_SHORT).show());
         cardAddFarm.setOnClickListener(v -> Toast.makeText(this, "Add Farm", Toast.LENGTH_SHORT).show());
         cardSoilStatus.setOnClickListener(v -> Toast.makeText(this, "Soil Status", Toast.LENGTH_SHORT).show());

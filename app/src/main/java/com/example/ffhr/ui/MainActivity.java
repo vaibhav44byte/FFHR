@@ -1,4 +1,4 @@
-package com.example.ffhr;
+package com.example.ffhr.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,8 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.ffhr.R;
+import com.example.ffhr.auth.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Splash Delay + Login Check
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
-            startActivity(new Intent(MainActivity.this, login.class));
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
 
 

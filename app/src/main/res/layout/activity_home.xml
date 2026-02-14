@@ -14,10 +14,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+    <include
+        android:id="@+id/my_footer"
+        layout="@layout/footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ScrollView
-        android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/my_footer"
+        android:layout_width="match_parent"
+
         android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/my_header"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -268,6 +278,7 @@
                             android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
 
             </GridLayout>
 

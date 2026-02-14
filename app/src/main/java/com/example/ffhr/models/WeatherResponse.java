@@ -1,4 +1,4 @@
-package com.example.ffhr;
+package com.example.ffhr.models;
 import com.google.gson.annotations.SerializedName;
 
 public class WeatherResponse {

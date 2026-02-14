@@ -1,4 +1,4 @@
-package com.example.ffhr; // IMPORTANT: Change to your package name
+package com.example.ffhr.ui; // IMPORTANT: Change to your package name
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.ffhr.R;
+import com.example.ffhr.network.WeatherApi;
+import com.example.ffhr.models.WeatherResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 

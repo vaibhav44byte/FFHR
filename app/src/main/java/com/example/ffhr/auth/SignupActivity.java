@@ -1,4 +1,4 @@
-package com.example.ffhr;
+package com.example.ffhr.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ffhr.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
 
         // Go to Login
         loginRedirectText.setOnClickListener(v -> {
-            startActivity(new Intent(SignupActivity.this, login.class));
+            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
             finish();
         });
     }
@@ -85,7 +86,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 Toast.makeText(SignupActivity.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
 
-                startActivity(new Intent(SignupActivity.this, login.class));
+                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                 finish();
 
             } else {

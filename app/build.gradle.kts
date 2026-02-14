@@ -48,5 +48,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 // Location Services
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("org.pytorch:pytorch_android_lite:1.13.0")
+    implementation("org.pytorch:pytorch_android_torchvision_lite:1.13.0")
 }

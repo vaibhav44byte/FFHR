@@ -1,4 +1,6 @@
-package com.example.ffhr;
+package com.example.ffhr.network;
+import com.example.ffhr.models.WeatherResponse;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

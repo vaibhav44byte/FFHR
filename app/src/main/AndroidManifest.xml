@@ -16,16 +16,18 @@
         android:theme="@style/Theme.FFHR">
 
         <!-- Signup -->
-        <activity android:name=".SignupActivity" android:exported="false" />
+        <activity android:name=".auth.SignupActivity" android:exported="false" />
 
         <!-- Login -->
-        <activity android:name=".login" android:exported="false" />
+        <activity android:name=".auth.LoginActivity" android:exported="false" />
 
         <!-- Home Screen (you forgot this — CRASH FIXED) -->
-        <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".ui.HomeActivity" android:exported="false" />
+
+        <activity android:name=".ui.LeafScanActivity" />
 
         <!-- Splash Screen (Launcher) -->
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".ui.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
