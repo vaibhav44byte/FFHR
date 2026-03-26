@@ -2,6 +2,7 @@ package com.example.ffhr.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,63 +17,68 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     EditText usernameInput, passwordInput;
-    Button goButton;
+    Button goButton, forgetPasswordText;
     TextView signupRedirectText;
 
-    FirebaseAuth auth; // FirebaseAuth reference
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Firebase Auth
         auth = FirebaseAuth.getInstance();
 
-        // Link XML
-        usernameInput = findViewById(R.id.usernameInput);  // this is EMAIL
+        usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
         goButton = findViewById(R.id.goButton);
+        forgetPasswordText = findViewById(R.id.forgetPasswordText);
         signupRedirectText = findViewById(R.id.signupRedirectText);
 
-        // LOGIN BUTTON
         goButton.setOnClickListener(v -> {
             String email = usernameInput.getText().toString().trim();
             String password = passwordInput.getText().toString().trim();
 
-            // Validation
             if (email.isEmpty()) {
                 usernameInput.setError("Email required");
-                return;
-            }
-            if (password.isEmpty()) {
-                passwordInput.setError("Password required");
+                usernameInput.requestFocus();
                 return;
             }
 
-            // Firebase Login
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                usernameInput.setError("Enter a valid email");
+                usernameInput.requestFocus();
+                return;
+            }
+
+            if (password.isEmpty()) {
+                passwordInput.setError("Password required");
+                passwordInput.requestFocus();
+                return;
+            }
+
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-
                             Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-
-// For now, after login just stay on login page or redirect to a new page we create later
-
                             finish();
-
                         } else {
+                            String errorMessage = task.getException() != null
+                                    ? task.getException().getMessage()
+                                    : "Login failed";
+
                             Toast.makeText(LoginActivity.this,
-                                    "Login Failed: " + task.getException().getMessage(),
+                                    "Login Failed: " + errorMessage,
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
         });
 
-        // Redirect to Signup
+        forgetPasswordText.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+        });
+
         signupRedirectText.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, SignupActivity.class));
         });

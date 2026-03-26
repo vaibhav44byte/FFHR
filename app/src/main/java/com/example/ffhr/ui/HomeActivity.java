@@ -97,7 +97,11 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        cardFertilizer.setOnClickListener(v -> Toast.makeText(this, "Fertilizer", Toast.LENGTH_SHORT).show());
+        cardFertilizer.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, FertilizerCalculatorActivity.class);
+            startActivity(intent);
+        });
+
         cardAddFarm.setOnClickListener(v -> Toast.makeText(this, "Add Farm", Toast.LENGTH_SHORT).show());
         cardSoilStatus.setOnClickListener(v -> Toast.makeText(this, "Soil Status", Toast.LENGTH_SHORT).show());
         cardSettings.setOnClickListener(v -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show());

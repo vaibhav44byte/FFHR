@@ -14,6 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FFHR">
+        <activity
+            android:name=".auth.ResetLinkSentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.FertilizerCalculatorActivity"
+            android:exported="false" />
+
 
         <!-- Signup -->
         <activity android:name=".auth.SignupActivity" android:exported="false" />
@@ -25,6 +32,10 @@
         <activity android:name=".ui.HomeActivity" android:exported="false" />
 
         <activity android:name=".ui.LeafScanActivity" />
+        <activity
+            android:name=".auth.ForgotPasswordActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Splash Screen (Launcher) -->
         <activity android:name=".ui.MainActivity" android:exported="true">
