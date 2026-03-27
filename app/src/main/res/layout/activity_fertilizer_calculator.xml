@@ -2,139 +2,195 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg_gradient"
-    android:padding="16dp">
+    android:background="#F4F8F2"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="18dp">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="Fertilizer &amp; Pesticide Calculator"
-            android:textColor="#04b31b"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spCrop"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Crop selection" />
+            android:background="@drawable/bg_calc_hero"
+            android:orientation="vertical"
+            android:padding="18dp">
 
-        <Spinner
-            android:id="@+id/spCategory"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Smart NPK Planner"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Plan fertilizer dose by crop, stage, and area."
+                android:textColor="#EAF7EE"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:contentDescription="Category selection" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_calc_card"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <Spinner
-            android:id="@+id/spProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:contentDescription="Product selection" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Field Details"
+                android:textColor="#183A1D"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints="none"
-            android:hint="Enter area"
-            android:inputType="numberDecimal" />
+            <Spinner
+                android:id="@+id/spCrop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
 
-        <Spinner
-            android:id="@+id/spAreaUnit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:contentDescription="Area unit selection" />
+            <Spinner
+                android:id="@+id/spStage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+            <Spinner
+                android:id="@+id/spSoilQuality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
-        <RadioGroup
-            android:id="@+id/rgMode"
+            <EditText
+                android:id="@+id/etArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="none"
+                android:backgroundTint="#67A86B"
+                android:hint="Enter land area"
+                android:inputType="numberDecimal"
+                android:padding="12dp" />
+
+            <Spinner
+                android:id="@+id/spAreaUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/btnLoadPreset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_calc_button"
+                android:text="Load Recommended Dose"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:orientation="horizontal">
+            android:background="@drawable/bg_calc_card"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <RadioButton
-                android:id="@+id/rbBroadcast"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Per Area Dose" />
+                android:text="Nutrient Targets"
+                android:textColor="#183A1D"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/rbSpray"
+            <TextView
+                android:id="@+id/tvPresetHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Recommended preset will appear here."
+                android:textColor="#507356"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/etNitrogen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="none"
+                android:backgroundTint="#67A86B"
+                android:hint="Nitrogen (N) per acre"
+                android:inputType="numberDecimal"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etPhosphorus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="none"
+                android:backgroundTint="#67A86B"
+                android:hint="Phosphorus (P) per acre"
+                android:inputType="numberDecimal"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etPotassium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="none"
+                android:backgroundTint="#67A86B"
+                android:hint="Potassium (K) per acre"
+                android:inputType="numberDecimal"
+                android:padding="12dp" />
+
+            <Button
+                android:id="@+id/btnCalculate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_calc_button"
+                android:text="Calculate Fertilizer Mix"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/bg_calc_result"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Spray Mix" />
-        </RadioGroup>
+                android:text="Recommendation"
+                android:textColor="#17351B"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvDoseHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Dose hint will appear here"
-            android:textColor="#444444"
-            android:textSize="13sp" />
-
-        <EditText
-            android:id="@+id/etDoseValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:autofillHints="none"
-            android:hint="Enter dose"
-            android:inputType="numberDecimal" />
-
-        <EditText
-            android:id="@+id/etTankSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints="none"
-            android:hint="Tank size (liters)"
-            android:inputType="numberDecimal"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/etSprayVolumePerAcre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints="none"
-            android:hint="Spray volume per acre (liters)"
-            android:inputType="numberDecimal"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btnCalculate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#04b31b"
-            android:text="Calculate"
-            android:textColor="#FFFFFF" />
-
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#EAF8EC"
-            android:padding="12dp"
-            android:text="Result will appear here"
-            android:textColor="#1F1F1F"
-            android:textSize="14sp" />
-
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Choose crop and stage, then calculate to see the fertilizer plan."
+                android:textColor="#24492A"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
