@@ -1,7 +1,9 @@
 package com.example.ffhr.models;
+
 import com.google.gson.annotations.SerializedName;
 
 public class WeatherResponse {
+
     @SerializedName("main")
     public Main main;
 
@@ -11,7 +13,9 @@ public class WeatherResponse {
     @SerializedName("name")
     public String name;
 
-    // Inner class for temperature and humidity
+    @SerializedName("weather")
+    public Weather[] weather;
+
     public static class Main {
         @SerializedName("temp")
         public float temp;
@@ -20,9 +24,19 @@ public class WeatherResponse {
         public int humidity;
     }
 
-    // Inner class for wind speed
     public static class Wind {
         @SerializedName("speed")
         public float speed;
+    }
+
+    public static class Weather {
+        @SerializedName("main")
+        public String main;
+
+        @SerializedName("description")
+        public String description;
+
+        @SerializedName("icon")
+        public String icon;
     }
 }

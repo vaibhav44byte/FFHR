@@ -46,44 +46,83 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Field Details"
-                android:textColor="#183A1D"
-                android:textSize="18sp"
+                android:layout_marginTop="12dp"
+                android:text="Crop Type"
+                android:textColor="#355E3B"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spCrop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Growth Stage"
+                android:textColor="#355E3B"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spStage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Soil Quality"
+                android:textColor="#355E3B"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
             <Spinner
                 android:id="@+id/spSoilQuality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Land Area"
+                android:textColor="#355E3B"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:autofillHints="none"
                 android:backgroundTint="#67A86B"
                 android:hint="Enter land area"
                 android:inputType="numberDecimal"
                 android:padding="12dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Area Unit"
+                android:textColor="#355E3B"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
             <Spinner
                 android:id="@+id/spAreaUnit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="6dp" />
+
 
             <Button
                 android:id="@+id/btnLoadPreset"
