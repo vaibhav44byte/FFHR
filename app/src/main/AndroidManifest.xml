@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FFHR">
         <activity
+            android:name=".ui.AddFarmActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".auth.ResetLinkSentActivity"
             android:exported="false" />
         <activity

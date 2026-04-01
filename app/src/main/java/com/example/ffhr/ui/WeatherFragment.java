@@ -141,15 +141,16 @@ public class WeatherFragment extends Fragment {
         String condition = mainCondition == null ? "" : mainCondition.toLowerCase(Locale.US);
 
         if (condition.contains("rain") || condition.contains("drizzle")) {
-            ivWeatherIcon.setImageResource(android.R.drawable.ic_menu_upload);
+            ivWeatherIcon.setImageResource(R.drawable.ic_weather_rainy);
         } else if (condition.contains("cloud")) {
-            ivWeatherIcon.setImageResource(android.R.drawable.ic_menu_gallery);
+            ivWeatherIcon.setImageResource(R.drawable.ic_weather_cloudy);
         } else if (condition.contains("storm") || condition.contains("thunder")) {
-            ivWeatherIcon.setImageResource(android.R.drawable.ic_dialog_alert);
+            ivWeatherIcon.setImageResource(R.drawable.ic_weather_storm);
         } else {
-            ivWeatherIcon.setImageResource(android.R.drawable.ic_menu_compass);
+            ivWeatherIcon.setImageResource(R.drawable.ic_weather_sunny);
         }
     }
+
 
     private String capitalizeWords(String value) {
         if (value == null || value.trim().isEmpty()) {
