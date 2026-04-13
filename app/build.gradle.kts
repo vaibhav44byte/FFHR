@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -50,4 +51,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("org.pytorch:pytorch_android_lite:1.13.0")
     implementation("org.pytorch:pytorch_android_torchvision_lite:1.13.0")
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.maps.android:android-maps-utils:3.19.1")
+
+
+
 }

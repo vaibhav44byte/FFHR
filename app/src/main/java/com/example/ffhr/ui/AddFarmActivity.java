@@ -10,6 +10,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
+import com.example.ffhr.models.BoundaryPointModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +43,16 @@ public class AddFarmActivity extends AppCompatActivity {
     private Spinner spCropType, spSoilQuality, spIrrigationType;
     private TextView tvLatitude, tvLongitude, tvLocationStatus;
     private Button btnCaptureLocation, btnSaveFarm;
+    private Button btnMarkBoundary;
+    private TextView tvBoundarySummary;
+
+    private double boundaryAreaAcres = 0.0;
+    private double boundaryAreaSqMeters = 0.0;
+    private String fullAddress = "";
+    private List<BoundaryPointModel> boundaryPoints = new ArrayList<>();
+
+    private ActivityResultLauncher<Intent> boundaryPickerLauncher;
+
 
     private FusedLocationProviderClient fusedLocationClient;
     private FirebaseAuth auth;
@@ -47,6 +68,8 @@ public class AddFarmActivity extends AppCompatActivity {
 
         bindViews();
         setupSpinners();
+        setupBoundaryPicker();
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         auth = FirebaseAuth.getInstance();
@@ -55,12 +78,81 @@ public class AddFarmActivity extends AppCompatActivity {
 
         btnCaptureLocation.setOnClickListener(v -> captureLocation());
         btnSaveFarm.setOnClickListener(v -> saveFarm());
+        btnMarkBoundary.setOnClickListener(v -> {
+            Intent intent = new Intent(AddFarmActivity.this, SelectFarmBoundaryActivity.class);
+            boundaryPickerLauncher.launch(intent);
+        });
+
+
     }
+    private void setupBoundaryPicker() {
+        boundaryPickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() != RESULT_OK || result.getData() == null) {
+                        return;
+                    }
+
+                    Intent data = result.getData();
+
+                    boundaryAreaAcres = data.getDoubleExtra(SelectFarmBoundaryActivity.EXTRA_AREA_ACRES, 0.0);
+                    boundaryAreaSqMeters = data.getDoubleExtra(SelectFarmBoundaryActivity.EXTRA_AREA_SQ_METERS, 0.0);
+                    currentLatitude = data.getDoubleExtra(SelectFarmBoundaryActivity.EXTRA_CENTER_LAT, 0.0);
+                    currentLongitude = data.getDoubleExtra(SelectFarmBoundaryActivity.EXTRA_CENTER_LON, 0.0);
+                    fullAddress = data.getStringExtra(SelectFarmBoundaryActivity.EXTRA_ADDRESS);
+
+                    String serializedPoints = data.getStringExtra(SelectFarmBoundaryActivity.EXTRA_BOUNDARY_POINTS);
+                    boundaryPoints = parseBoundaryPoints(serializedPoints);
+
+                    tvLatitude.setText(String.format(Locale.US, "%.6f", currentLatitude));
+                    tvLongitude.setText(String.format(Locale.US, "%.6f", currentLongitude));
+                    tvLocationStatus.setText("Farm boundary and center location captured.");
+
+                    String addressText = TextUtils.isEmpty(fullAddress) ? "Address not available" : fullAddress;
+
+                    tvBoundarySummary.setText(String.format(Locale.US,
+                            "Boundary selected\nArea: %.2f acres\nPoints: %d\nAddress: %s",
+                            boundaryAreaAcres,
+                            boundaryPoints.size(),
+                            addressText));
+                }
+        );
+    }
+
+    private List<BoundaryPointModel> parseBoundaryPoints(String serializedPoints) {
+        List<BoundaryPointModel> points = new ArrayList<>();
+
+        if (TextUtils.isEmpty(serializedPoints)) {
+            return points;
+        }
+
+        String[] pairs = serializedPoints.split(";");
+
+        for (String pair : pairs) {
+            String[] values = pair.split(",");
+            if (values.length != 2) {
+                continue;
+            }
+
+            try {
+                double lat = Double.parseDouble(values[0]);
+                double lon = Double.parseDouble(values[1]);
+                points.add(new BoundaryPointModel(lat, lon));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
+        return points;
+    }
+
 
     private void bindViews() {
         etFarmName = findViewById(R.id.etFarmName);
         etVillage = findViewById(R.id.etVillage);
         etArea = findViewById(R.id.etArea);
+        btnMarkBoundary = findViewById(R.id.btnMarkBoundary);
+        tvBoundarySummary = findViewById(R.id.tvBoundarySummary);
+
 
         spCropType = findViewById(R.id.spCropType);
         spSoilQuality = findViewById(R.id.spSoilQuality);
@@ -69,6 +161,8 @@ public class AddFarmActivity extends AppCompatActivity {
         tvLatitude = findViewById(R.id.tvLatitude);
         tvLongitude = findViewById(R.id.tvLongitude);
         tvLocationStatus = findViewById(R.id.tvLocationStatus);
+
+
 
         btnCaptureLocation = findViewById(R.id.btnCaptureLocation);
         btnSaveFarm = findViewById(R.id.btnSaveFarm);
@@ -156,6 +250,13 @@ public class AddFarmActivity extends AppCompatActivity {
             Toast.makeText(this, "Unable to create farm record", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (boundaryPoints.size() < 3) {
+            Toast.makeText(this, "Please mark the farm boundary first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        long now = System.currentTimeMillis();
 
         FarmModel farm = new FarmModel(
                 farmId,
@@ -165,10 +266,17 @@ public class AddFarmActivity extends AppCompatActivity {
                 spSoilQuality.getSelectedItem().toString(),
                 spIrrigationType.getSelectedItem().toString(),
                 village,
+                fullAddress,
                 area,
+                boundaryAreaAcres,
+                boundaryAreaSqMeters,
                 currentLatitude,
-                currentLongitude
+                currentLongitude,
+                boundaryPoints,
+                now,
+                now
         );
+
 
         farmsRef.child(currentUser.getUid()).child(farmId).setValue(farm)
                 .addOnSuccessListener(unused -> {
@@ -188,6 +296,12 @@ public class AddFarmActivity extends AppCompatActivity {
         tvLocationStatus.setText("Capture your farm's live location");
         currentLatitude = 0.0;
         currentLongitude = 0.0;
+        boundaryAreaAcres = 0.0;
+        boundaryAreaSqMeters = 0.0;
+        fullAddress = "";
+        boundaryPoints.clear();
+        tvBoundarySummary.setText("Boundary not selected yet.");
+
     }
 
     @Override
