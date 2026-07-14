@@ -132,8 +132,10 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        cardSoilStatus.setOnClickListener(v ->
-                Toast.makeText(this, "Soil Status", Toast.LENGTH_SHORT).show());
+        cardSoilStatus.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, SoilStatusActivity.class);
+            startActivity(intent);
+        });
 
         cardSettings.setOnClickListener(v ->
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show());

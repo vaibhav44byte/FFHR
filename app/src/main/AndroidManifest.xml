@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FFHR">
-
+        <activity
+            android:name=".ui.SoilStatusActivity"
+            android:exported="false" />
 
         <activity
             android:name=".ui.SelectFarmBoundaryActivity"
