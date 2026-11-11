@@ -1,7 +1,3 @@
-
-<div align="center">
-  <img src="logo.png" alt="SoilSathi Logo" width="300"/>
-
   # 🌱 SoilSathi (FFHR)
   ### Farmer's Farm Health Report
 
