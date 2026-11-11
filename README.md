@@ -1,17 +1,20 @@
+
 <div align="center">
-  # 🌱 SoilSathi (FFHR)
-  ### Farmer's Farm Health Report
 
-  **Healthy Soil. Better Farming. Sustainable Future.**
+# 🌱 SoilSathi
+### Farmer's Farm Health Report (FFHR)
 
-  *Making farm health insights simple and accessible for every farmer.*
+**Healthy Soil. Better Farming. Sustainable Future.**
+
+*Making farm health insights simple and accessible for every farmer.*
+
 </div>
 
 ---
 
 ## 🌾 About the Project
 
-SoilSathi is an initiative to help farmers understand the health of their farms through simple insights and actionable recommendations.
+SoilSathi is a platform designed to help farmers understand the health of their farms through simple insights and actionable recommendations.
 
 It focuses on soil health, crop conditions, and sustainable farming practices to help farmers make informed decisions while protecting soil fertility for future generations.
 
@@ -41,11 +44,10 @@ To make sustainable agriculture easier and more accessible by combining technolo
 | MySQL | Database |
 | Firebase | Mobile services |
 
-*Technology stack is subject to change as development progresses.*
-
 ## 🌍 Sustainability Impact
 
 SoilSathi aims to encourage:
+
 - Long-term soil fertility.
 - Responsible fertilizer and nutrient usage.
 - Better water management.
@@ -67,6 +69,7 @@ Feel free to fork this repository and share your improvements.
 <div align="center">
 
 ### 🌱 SoilSathi
+
 **Understand Your Soil. Grow Sustainably.**
 
 Made with ❤️ for farmers and a greener future.
